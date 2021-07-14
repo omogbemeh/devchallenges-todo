@@ -27,22 +27,22 @@ main {
     text-align: center;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 600px) {
     html {
         font-size: 65%;
     }
     main {
-        max-width: 45rem;
+        min-width: 45rem;
     }
 }
 
-@media (max-width: 500px) {
+@media (min-width: 500px) {
     main {
-        max-width: 41rem;
+        min-width: 41rem;
     }
 }
 
-@media (max-width: 411px) {
+@media (min-width: 411px) {
     html {
         font-size: 55%;
     }
@@ -51,13 +51,13 @@ main {
     }
 }
 
-@media (max-width: 360px) {
+@media (min-width: 360px) {
     main {
         max-width: 30rem;
     }
 }
 
-@media (max-width: 320px) {
+@media (min-width: 320px) {
     main {
         max-width: 28rem;
     }
