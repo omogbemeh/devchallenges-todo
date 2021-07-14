@@ -1,0 +1,63 @@
+<div>
+    <header>
+        <h1>#todo</h1>
+    </header>
+    <nav>
+        <ul>
+            <li [class.active]="showAll" (click)="displayAll()">All</li>
+            <li [class.active]="showActive" (click)="filterActive()">Active</li>
+            <li [class.active]="showCompleted" (click)="filterCompleted()">Completed</li>
+        </ul>
+    </nav>
+</div>
+
+<form class="form" (submit)="submitPost(input, $event)">
+    <input required autofocus type="text" placeholder="Add a Task" class="form-input" #input />
+    <button class="btn">Add</button>
+</form>
+
+<section class="todo-section" *ngIf="showAll">
+    <div style="text-align: center;" class="no-task-intro">
+        <h4 *ngIf="posts.length === 0">You currently have no tasks,&nbsp; Add a Task!</h4>
+    </div>
+    <div class="list-item" *ngFor="let post of posts" (click)="isClicked(post)">
+        <div class="check-box-group">
+            <input type="checkbox" id="{{post.id}}" class="check-icon" (change)="onChange($event.target, post)" [checked]="post.isChecked" />
+            <label for="{{post.id}}" class="check-label" [ngClass]="{
+                'complete': post.isChecked}" (click)="isClicked(post)">
+                {{ post.title}}
+            </label>
+        </div>
+    </div>
+</section>
+
+<section class="todo-section" *ngIf="showActive">
+    <h4 class="mb-2" *ngIf="activePosts.length === 0">You currently have no active task</h4>
+    <div class="list-item" *ngFor="let activePost of activePosts" (click)="isClicked(activePost)">
+        <div class="check-box-group">
+            <input type="checkbox" id="{{activePost.id}}" class="check-icon" [checked]="activePost.isChecked" />
+            <label for="{{activePost.id}}" class="check-label" [ngClass]="{
+                'complete': activePost.isChecked}" (click)="isClicked(activePost)">
+                {{ activePost.title}}
+            </label>
+        </div>
+    </div>
+</section>
+
+<section class="todo-section" *ngIf="showCompleted">
+    <h4 class="mb-2" *ngIf="completedPosts.length === 0">You currently have no Completed task</h4>
+    <div class="list-item" *ngFor="let completedPost of completedPosts" (click)="isClicked(completedPost)">
+        <div class="check-box-group">
+            <input type="checkbox" id="{{completedPost.id}}" class="check-icon" [checked]="completedPost.isChecked" />
+            <label for="{{completedPost.id}}" class="check-label" [ngClass]="{
+                'complete': completedPost.isChecked}" (click)="isClicked(completedPost)">
+                {{ completedPost.title}}
+            </label>
+        </div>
+        <i (click)="deleteTask(completedPost.id)" class="far fa-trash-alt deleted"></i>
+    </div>
+    <button class="delete-all" *ngIf="completedPosts.length !== 0" (click)="deleteAll()">
+        <i class="far fa-trash-alt deleted"></i> &nbsp;
+        Delete All
+    </button>
+</section>
